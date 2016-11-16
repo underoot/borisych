@@ -4,9 +4,14 @@ const _ = require('lodash');
 
 const log = require('./log');
 
-const bot = new Telegraf(
-	process.env.BORISYCH_TOKEN || config.get('token')
-);
+const token = process.env.BORISYCH_TOKEN || config.get('token');
+
+if (!token) {
+	log.error('borisych needs token!');
+	process.exit(1);
+}
+
+const bot = new Telegraf(token);
 
 const TRIGGER_WORDS = Object.keys(config.get('triggers'));
 

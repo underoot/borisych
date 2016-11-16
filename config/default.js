@@ -1,7 +1,7 @@
 module.exports = {
 	token: '',
 	timeout: 30,
-	limit: 50,
+	limit: 100,
 	triggers: {
 		'можно': {
 			action: 'simpleAnswer',

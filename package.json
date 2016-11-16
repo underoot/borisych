@@ -4,7 +4,7 @@
   "description": "Ignatiev's Bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "sh ./scripts/start.sh",
 	"test": "echo 'I never deploy apps without tests!'"
   },
   "engines": {
