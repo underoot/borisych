@@ -7,6 +7,9 @@
     "start": "node index.js",
 	"test": "echo 'I never deploy apps without tests!'"
   },
+  "engines": {
+	  "node": "7.1.0"
+  },
   "keywords": [
 	  "telegram",
 	  "bot",
