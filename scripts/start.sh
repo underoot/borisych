@@ -7,7 +7,7 @@
 
 BORISYCH_SERVER_TEXT="У нас все можно"
 
-if [[ -n ${PORT} ]]; then
+if [ -n $PORT ]; then
 	node -e "\
 		require('http')\
 		.createServer((req, res) => {\
