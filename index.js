@@ -5,7 +5,7 @@ const _ = require('lodash');
 const log = require('./log');
 
 const bot = new Telegraf(
-	config.get('token')
+	process.env.BORISYCH_TOKEN || config.get('token')
 );
 
 const TRIGGER_WORDS = Object.keys(config.get('triggers'));
@@ -19,12 +19,12 @@ function triggerWord(message) {
 const handlers = {
 	simpleAnswer(ctx, options) {
 		const answerOptions = [];
-		
+
 		answerOptions.push(options.text);
-		
+
 		ctx[options.method].apply(ctx, answerOptions);
 	},
-	
+
 	greatingAnswer(ctx, options) {
 		const answerOptions = [];
 		let text = options.text;
@@ -36,7 +36,7 @@ const handlers = {
 		}
 
 		answerOptions.push(text);
-		
+
 		ctx[options.method].apply(ctx, answerOptions);
 	}
 }
@@ -49,17 +49,22 @@ function processMessage(word, ctx) {
 		action,
 		options
 	} = handler;
-	
+
 	handlers[action](ctx, options);
 }
 
 bot.on('text', ctx => {
 	const word = triggerWord(_.get(ctx, 'message.text'));
-	
+
 	if (word) {
-		log.info(`triggered word ${word} from user ${_.get(ctx, 'from.id')}`)
+		log.info(`triggered word "${word}" from user ${_.get(ctx, 'from.id')}`)
 		processMessage(word, ctx);
 	}
 });
 
-bot.startPolling();
+bot.startPolling(
+	config.get('timeout'),
+	config.get('limit')
+);
+
+log.info('borisych started');

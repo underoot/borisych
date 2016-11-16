@@ -1,14 +1,19 @@
 {
   "name": "borisych",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ignatiev's Bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+	"test": "echo 'I never deploy apps without tests!'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+	  "telegram",
+	  "bot",
+	  "ispu"
+  ],
+  "author": "Alex Shoronov <alexshoronov@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "config": "^1.24.0",
     "lodash": "^4.17.2",
