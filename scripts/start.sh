@@ -6,15 +6,14 @@
 # Author: Alex Shoronov <alexshoronov@gmail.com>
 
 BORISYCH_SERVER_TEXT="У нас все можно"
-HEROKU_PORT_VARIABLE="PORT"
 
-if [[ -n ${!HEROKU_PORT_VARIABLE} ]]; then
+if [[ -n ${PORT} ]]; then
 	node -e "\
 		require('http')\
 		.createServer((req, res) => {\
 			res.end('${BORISYCH_SERVER_TEXT}');\
 		})\
-		.listen(process.env.${HEROKU_PORT_VARIABLE});\
+		.listen(process.env.PORT);\
 	" &
 	node index;
 else
