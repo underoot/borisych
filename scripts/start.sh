@@ -10,12 +10,20 @@
 BORISYCH_SERVER_TEXT="У нас все можно"
 HEROKU_HOST='borisych.herokuapp.com'
 REQUEST_INTERVAL=1200000
+REQUEST_TIMEOUT=60000
 
 if [ -n $PORT ]; then
 	node -e "\
 		var http = require('http');\
 		setInterval(() => {\
-			http.request({ host: '${HEROKU_HOST}' });\
+			const req = http.request({\
+				host: '${HEROKU_HOST}',\
+				timeout: ${REQUEST_TIMEOUT}\
+			});\
+			req.on('error', err => {\
+				console.log('Cannot connect to dyno: ' + err.message);\
+			});\
+			req.end();\
 		}, ${REQUEST_INTERVAL});\
 		http.createServer((req, res) => {\
 			res.end('${BORISYCH_SERVER_TEXT}');\
